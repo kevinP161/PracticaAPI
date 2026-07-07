@@ -1,3 +1,6 @@
+using GestionEmpresarial.API.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +14,7 @@ builder.Services.AddAuthorization();
 
 //Inyecciones de dependencias
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name= DefaultConnection"));
 
  
 

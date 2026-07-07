@@ -9,7 +9,7 @@ namespace GestionEmpresarial.Shared.Entities
 {
     public class Empresa
     {
-        [Required]
+        //primary key
         public int Id { get; set; }
 
         [Display(Name ="Nombre de la Empresa")]
