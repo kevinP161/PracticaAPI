@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
 {
-    public class Empresa
+    public class Categoria
     {
+
         //primary key
         public int Id { get; set; }
 
 
-        [Display(Name ="Nombre de la Empresa")]
+        [Display(Name = "Nombre de la Categoria")]
         [Required]
-        [MaxLength(50)]
-        public string Nombre { get; set; }
+        [MaxLength(20)]
+        public string CategoriaNombre { get; set; }
 
-    }
+        }
 }
