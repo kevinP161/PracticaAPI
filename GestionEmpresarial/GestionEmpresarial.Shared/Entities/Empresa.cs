@@ -16,7 +16,10 @@ namespace GestionEmpresarial.Shared.Entities
         [Display(Name ="Nombre de la Empresa")]
         [Required]
         [MaxLength(50)]
-        public string Nombre { get; set; }
+        public string NombreEmpresa { get; set; }
 
+
+        //Relacion con la Tabla Tecnico
+        public ICollection<Tecnico> Tecnico { get; set; }
     }
 }

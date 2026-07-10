@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GestionEmpresarial.Shared.Entities
+{
+    public class Tecnico_Conocimiento
+    {
+
+        public int  Id { get; set; }
+
+        [Display(Name = "Grado de Conocimiento")]
+        [Required]
+        public string Grado { get; set; }
+
+
+        //Foreign key
+        public int TecnicoId { get; set; }
+        public int ConocimientoId { get; set; }
+
+
+        //Navegation property
+        public Tecnico Tecnico { get; set; }
+        public Conocimiento Conocimiento { get; set; }
+    }
+}
