@@ -21,6 +21,7 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Relacion con la Tabla Tecnico
+
         public ICollection<Tecnico> Tecnico { get; set; }
     }
 }
