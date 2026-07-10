@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
@@ -27,7 +28,10 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Navegation property
+        [JsonIgnore]
         public Empresa Empresa { get; set; }
+
+        [JsonIgnore]
         public Categoria Categoria { get; set; }
 
         //Foreign key

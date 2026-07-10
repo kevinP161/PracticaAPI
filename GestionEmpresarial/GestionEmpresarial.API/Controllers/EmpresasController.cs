@@ -1,4 +1,5 @@
 ﻿using GestionEmpresarial.API.Data;
+using GestionEmpresarial.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,5 +43,43 @@ namespace GestionEmpresarial.API.Controllers
 
             return Ok(empresa);
         }
+
+
+        //Create datos
+        [HttpPost]
+
+        public async Task<ActionResult> Post(Empresa empresa)
+        {
+            _context.Add(empresa);
+            await _context.SaveChangesAsync();
+            return Ok(empresa);
+        }
+
+
+        //Update datos
+        [HttpPut]
+        public async Task<ActionResult> Put(Empresa empresa)
+        {
+            _context.Update(empresa);
+            await _context.SaveChangesAsync();
+            return Ok(empresa);
+        }
+
+
+        //Delete datos
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var Filas_Afectadas = await _context.Empresas
+                .Where(x => x.Id == id)
+                .ExecuteDeleteAsync();
+
+                if (Filas_Afectadas == 0)
+                {
+                    return NotFound();
+                }
+                return NoContent();
+        }
+
     }
 }

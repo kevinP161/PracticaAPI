@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
@@ -23,7 +24,10 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Navegation property
+        [JsonIgnore]
         public Tecnico Tecnico { get; set; }
+
+        [JsonIgnore]
         public Conocimiento Conocimiento { get; set; }
     }
 }
