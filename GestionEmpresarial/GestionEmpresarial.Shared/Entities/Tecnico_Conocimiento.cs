@@ -19,7 +19,9 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Foreign key
+        [JsonIgnore]
         public int TecnicoId { get; set; }
+        [JsonIgnore]
         public int ConocimientoId { get; set; }
 
 

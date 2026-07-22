@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
@@ -28,12 +29,15 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Navegation property
+        [JsonIgnore]
         public Cliente Cliente { get; set; }
         //Foreign key
+        [JsonIgnore]
         public int ClienteId { get; set; }
 
 
         //Relacion con la Tabla Asignacion
+        [JsonIgnore]
         public ICollection<Asignacion> Asignacion { get; set; }
     }
 }

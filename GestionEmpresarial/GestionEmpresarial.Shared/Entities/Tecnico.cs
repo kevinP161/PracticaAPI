@@ -35,14 +35,18 @@ namespace GestionEmpresarial.Shared.Entities
         public Categoria Categoria { get; set; }
 
         //Foreign key
+        [JsonIgnore]
         public int EmpresaId { get; set; }
+        [JsonIgnore]
         public int CategoriaId { get; set; }
 
 
         //Relacion con la Tabla Asignacion
+        [JsonIgnore]
         public ICollection<Asignacion> Asignacion { get; set; }
 
         //Relacion con la Tabla Tecnico_Conocimiento
+        [JsonIgnore]
         public ICollection<Tecnico_Conocimiento> Tecnico_Conocimiento { get; set; }
     }
 }

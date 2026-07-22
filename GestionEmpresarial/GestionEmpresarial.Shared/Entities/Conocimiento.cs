@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
@@ -26,6 +27,7 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Relación con la Tabla Tecnico_Conocimiento
+        [JsonIgnore]
         public ICollection<Tecnico_Conocimiento> Tecnico_Conocimiento { get; set; }
     }
 }

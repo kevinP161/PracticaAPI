@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
@@ -21,6 +22,7 @@ namespace GestionEmpresarial.Shared.Entities
 
 
         //Relacíon con la Tabla Proyecto
+        [JsonIgnore]
         public ICollection<Proyecto> Proyecto { get; set; } = new List<Proyecto>();
     }
 }
