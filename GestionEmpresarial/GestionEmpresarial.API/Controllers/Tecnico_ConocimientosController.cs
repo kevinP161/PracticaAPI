@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore;
 namespace GestionEmpresarial.API.Controllers
 {
     [ApiController]
-    [Route("/api/Empresas")]
-
-    public class EmpresasController : ControllerBase
+    [Route("/api/Tecnicos_Conocimientos")]
+    public class Tecnico_ConocimientosController : ControllerBase
     {
 
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        public Tecnico_ConocimientosController(DataContext context)
         {
             _context = context;
         }
@@ -25,7 +24,7 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get()
         {
-            return Ok(await _context.Empresas.ToListAsync());
+            return Ok(await _context.Tecnico_Conocimientos.ToListAsync());
         }
 
 
@@ -35,34 +34,34 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get(int id)
         {
-            var empresa = await _context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
-            if (empresa == null)
+            var tecnico_Conocimiento = await _context.Tecnico_Conocimientos.FirstOrDefaultAsync(x => x.Id == id);
+            if (tecnico_Conocimiento == null)
             {
                 return NotFound();
             }
 
-            return Ok(empresa);
+            return Ok(tecnico_Conocimiento);
         }
 
 
         //Create datos
         [HttpPost]
 
-        public async Task<ActionResult> Post(Empresa empresa)
+        public async Task<ActionResult> Post(Tecnico_Conocimiento tecnico_Conocimiento)
         {
-            _context.Add(empresa);
+            _context.Add(tecnico_Conocimiento);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(tecnico_Conocimiento);
         }
 
 
         //Update datos
         [HttpPut]
-        public async Task<ActionResult> Put(Empresa empresa)
+        public async Task<ActionResult> Put(Tecnico_Conocimiento tecnico_Conocimiento)
         {
-            _context.Update(empresa);
+            _context.Update(tecnico_Conocimiento);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(tecnico_Conocimiento);
         }
 
 
@@ -70,16 +69,15 @@ namespace GestionEmpresarial.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var Filas_Afectadas = await _context.Empresas
+            var Filas_Afectadas = await _context.Tecnico_Conocimientos
                 .Where(x => x.Id == id)
                 .ExecuteDeleteAsync();
 
-                if (Filas_Afectadas == 0)
-                {
-                    return NotFound();
-                }
-                return NoContent();
+            if (Filas_Afectadas == 0)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
-
     }
 }

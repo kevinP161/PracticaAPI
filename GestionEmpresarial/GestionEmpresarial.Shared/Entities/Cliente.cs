@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 
 namespace GestionEmpresarial.Shared.Entities
 {
-    public class Categoria
+    public class Cliente
     {
 
         //primary key
         public int Id { get; set; }
 
 
-        [Display(Name = "Nombre de la Categoria")]
+        [Display(Name = "Nombre del Cliente")]
         [Required]
-        [MaxLength(20)]
-        public string NombreCategoria { get; set; }
+        [MaxLength(50)]
+        public string NombreCliente { get; set; }
 
 
-        //Relacion con la Tabla Tecnico
-
-        public ICollection<Tecnico> Tecnico { get; set; }
+        //Relacíon con la Tabla Proyecto
+        public ICollection<Proyecto> Proyecto { get; set; } = new List<Proyecto>();
     }
 }

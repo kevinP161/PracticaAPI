@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GestionEmpresarial.API.Controllers
 {
-    [ApiController]
-    [Route("/api/Empresas")]
 
-    public class EmpresasController : ControllerBase
+    [ApiController]
+    [Route("/api/Asignaciones")]
+    public class AsignacionesController : ControllerBase
     {
 
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        public AsignacionesController(DataContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get()
         {
-            return Ok(await _context.Empresas.ToListAsync());
+            return Ok(await _context.Asignaciones.ToListAsync());
         }
 
 
@@ -35,34 +35,34 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get(int id)
         {
-            var empresa = await _context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
-            if (empresa == null)
+            var asignacion = await _context.Asignaciones.FirstOrDefaultAsync(x => x.Id == id);
+            if (asignacion == null)
             {
                 return NotFound();
             }
 
-            return Ok(empresa);
+            return Ok(asignacion);
         }
 
 
         //Create datos
         [HttpPost]
 
-        public async Task<ActionResult> Post(Empresa empresa)
+        public async Task<ActionResult> Post(Asignacion asignacion)
         {
-            _context.Add(empresa);
+            _context.Add(asignacion);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(asignacion);
         }
 
 
         //Update datos
         [HttpPut]
-        public async Task<ActionResult> Put(Empresa empresa)
+        public async Task<ActionResult> Put(Asignacion asignacion)
         {
-            _context.Update(empresa);
+            _context.Update(asignacion);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(asignacion);
         }
 
 
@@ -70,16 +70,15 @@ namespace GestionEmpresarial.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var Filas_Afectadas = await _context.Empresas
+            var Filas_Afectadas = await _context.Asignaciones
                 .Where(x => x.Id == id)
                 .ExecuteDeleteAsync();
 
-                if (Filas_Afectadas == 0)
-                {
-                    return NotFound();
-                }
-                return NoContent();
+            if (Filas_Afectadas == 0)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
-
     }
 }

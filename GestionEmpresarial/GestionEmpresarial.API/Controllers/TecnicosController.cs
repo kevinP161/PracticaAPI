@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore;
 namespace GestionEmpresarial.API.Controllers
 {
     [ApiController]
-    [Route("/api/Empresas")]
-
-    public class EmpresasController : ControllerBase
+    [Route("/api/Tecnicos")]
+    public class TecnicosController : ControllerBase
     {
 
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        public TecnicosController(DataContext context)
         {
             _context = context;
         }
@@ -25,7 +24,7 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get()
         {
-            return Ok(await _context.Empresas.ToListAsync());
+            return Ok(await _context.Tecnicos.ToListAsync());
         }
 
 
@@ -35,34 +34,34 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get(int id)
         {
-            var empresa = await _context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
-            if (empresa == null)
+            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(x => x.Id == id);
+            if (tecnico == null)
             {
                 return NotFound();
             }
 
-            return Ok(empresa);
+            return Ok(tecnico);
         }
 
 
         //Create datos
         [HttpPost]
 
-        public async Task<ActionResult> Post(Empresa empresa)
+        public async Task<ActionResult> Post(Tecnico tecnico)
         {
-            _context.Add(empresa);
+            _context.Add(tecnico);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(tecnico);
         }
 
 
         //Update datos
         [HttpPut]
-        public async Task<ActionResult> Put(Empresa empresa)
+        public async Task<ActionResult> Put(Tecnico tecnico)
         {
-            _context.Update(empresa);
+            _context.Update(tecnico);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(tecnico);
         }
 
 
@@ -70,16 +69,15 @@ namespace GestionEmpresarial.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var Filas_Afectadas = await _context.Empresas
+            var Filas_Afectadas = await _context.Tecnicos
                 .Where(x => x.Id == id)
                 .ExecuteDeleteAsync();
 
-                if (Filas_Afectadas == 0)
-                {
-                    return NotFound();
-                }
-                return NoContent();
+            if (Filas_Afectadas == 0)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
-
     }
 }

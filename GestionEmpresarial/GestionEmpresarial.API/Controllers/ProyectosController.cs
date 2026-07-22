@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore;
 namespace GestionEmpresarial.API.Controllers
 {
     [ApiController]
-    [Route("/api/Empresas")]
-
-    public class EmpresasController : ControllerBase
+    [Route("/api/Proyectos")]
+    public class ProyectosController : ControllerBase
     {
 
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        public ProyectosController(DataContext context)
         {
             _context = context;
         }
@@ -25,7 +24,7 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get()
         {
-            return Ok(await _context.Empresas.ToListAsync());
+            return Ok(await _context.Proyectos.ToListAsync());
         }
 
 
@@ -35,34 +34,34 @@ namespace GestionEmpresarial.API.Controllers
 
         public async Task<ActionResult> Get(int id)
         {
-            var empresa = await _context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
-            if (empresa == null)
+            var proyecto = await _context.Proyectos.FirstOrDefaultAsync(x => x.Id == id);
+            if (proyecto == null)
             {
                 return NotFound();
             }
 
-            return Ok(empresa);
+            return Ok(proyecto);
         }
 
 
         //Create datos
         [HttpPost]
 
-        public async Task<ActionResult> Post(Empresa empresa)
+        public async Task<ActionResult> Post(Proyecto proyecto)
         {
-            _context.Add(empresa);
+            _context.Add(proyecto);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(proyecto);
         }
 
 
         //Update datos
         [HttpPut]
-        public async Task<ActionResult> Put(Empresa empresa)
+        public async Task<ActionResult> Put(Proyecto proyecto)
         {
-            _context.Update(empresa);
+            _context.Update(proyecto);
             await _context.SaveChangesAsync();
-            return Ok(empresa);
+            return Ok(proyecto);
         }
 
 
@@ -70,16 +69,15 @@ namespace GestionEmpresarial.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var Filas_Afectadas = await _context.Empresas
+            var Filas_Afectadas = await _context.Proyectos
                 .Where(x => x.Id == id)
                 .ExecuteDeleteAsync();
 
-                if (Filas_Afectadas == 0)
-                {
-                    return NotFound();
-                }
-                return NoContent();
+            if (Filas_Afectadas == 0)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
-
     }
 }

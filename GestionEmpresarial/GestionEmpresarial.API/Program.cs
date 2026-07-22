@@ -15,8 +15,16 @@ builder.Services.AddAuthorization();
 //Inyecciones de dependencias
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name= DefaultConnection"));
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Gestion Empresarial API",
+        Version = "v1"
+    });
+});
 
- 
+
 
 var app = builder.Build();
 
@@ -32,6 +40,10 @@ app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestion Empresarial API v1");
+    });
 }
 
 app.UseHttpsRedirection();
