@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using GestionEmpresarial.Shared.Enums;
 
 namespace GestionEmpresarial.Shared.Entities
 {
@@ -15,7 +16,8 @@ namespace GestionEmpresarial.Shared.Entities
 
         [Display(Name = "Grado de Conocimiento")]
         [Required]
-        public string Grado { get; set; }
+
+        public GradoConocimiento Grado { get; set; }
 
 
         //Foreign key
@@ -23,7 +25,7 @@ namespace GestionEmpresarial.Shared.Entities
         public int TecnicoId { get; set; }
         [JsonIgnore]
         public int ConocimientoId { get; set; }
-
+ 
 
         //Navegation property
         [JsonIgnore]
