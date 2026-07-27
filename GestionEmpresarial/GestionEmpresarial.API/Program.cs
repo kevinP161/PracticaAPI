@@ -1,61 +1,56 @@
 using GestionEmpresarial.API.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using System.Text.Json.Serialization;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         // Evita referencias circulares
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 
-        // Hace que los enum se envíen y reciban como texto
+        // Hace que los enums se serialicen como texto
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
-builder.Services.AddOpenApi();
+
 builder.Services.AddAuthorization();
+
 builder.Services.AddTransient<SeedDb>();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-//Inyecciones de dependencias
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name= DefaultConnection"));
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Gestion Empresarial API",
-        Version = "v1"
+        Version = "v1",
+        Description = "API para Gestión Empresarial"
     });
+
+    // Mostrar enums como texto en Swagger
+    c.UseInlineDefinitionsForEnums();
 });
-
-
 
 var app = builder.Build();
 
+// Seed de la base de datos
 using (var scope = app.Services.CreateScope())
 {
     var seedDb = scope.ServiceProvider.GetRequiredService<SeedDb>();
     await seedDb.SeedAsync();
 }
 
-
-
-//Midleware
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestion Empresarial API v1");
